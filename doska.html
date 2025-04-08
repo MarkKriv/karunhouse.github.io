@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доска объявлений «Металлы и сплавы» | ООО НПК Метотех</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --metal-dark: #4a4a4a;
+            --metal-medium: #7d7d7d;
+            --metal-light: #b5b5b5;
+            --text-dark: #333;
+            --text-light: #f5f5f5;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 100%);
+        }
+        
+        /* Контейнер на весь экран */
+        .container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Шапка */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--metal-dark));
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+        
+        .logo-icon i {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+        }
+        
+        .logo-text span {
+            font-size: 14px;
+            display: block;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-menu a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-menu a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-menu i {
+            margin-right: 8px;
+        }
+        
+        .user-menu .btn {
+            background-color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+        }
+        
+        /* Навигация */
+        nav {
+            background-color: white;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .nav-link {
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-right: 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link i {
+            margin-right: 10px;
+        }
+        
+        .nav-link:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .nav-link.active {
+            color: var(--accent);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        /* Основное содержимое */
+        .content {
+            flex-grow: 1;
+            padding: 30px 40px;
+            background-color: #f9f9f9;
+        }
+        
+        /* Главная страница */
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title i {
+            margin-right: 15px;
+            color: var(--accent);
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .action-btn i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .action-btn h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 10px;
+        }
+        
+        .action-btn p {
+            font-size: 14px;
+            color: var(--metal-medium);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        
+        .action-btn.buy {
+            border-top: 4px solid var(--success);
+        }
+        
+        .action-btn.sell {
+            border-top: 4px solid var(--accent);
+        }
+        
+        .action-btn.services {
+            border-top: 4px solid var(--secondary);
+        }
+        
+        /* Фильтры */
+        .filters {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .filter-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--metal-medium);
+        }
+        
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .filter-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-btn i {
+            margin-right: 10px;
+        }
+        
+        .filter-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .filter-btn.reset {
+            background-color: var(--metal-light);
+        }
+        
+        .filter-btn.reset:hover {
+            background-color: var(--metal-medium);
+        }
+        
+        /* Список объявлений */
+        .ads-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .ad-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ad-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        
+        .ad-card.new::after {
+            content: 'NEW';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 2;
+        }
+        
+        .ad-image {
+            height: 220px;
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .ad-card:hover .ad-image img {
+            transform: scale(1.05);
+        }
+        
+        .ad-image .no-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--metal-medium);
+            background-color: #f5f5f5;
+        }
+        
+        .ad-image .no-image i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        .ad-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ad-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .ad-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--metal-medium);
+        }
+        
+        .ad-meta span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .ad-meta i {
+            margin-right: 5px;
+        }
+        
+        .ad-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .ad-description {
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+        
+        .ad-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        
+        .ad-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+        
+        .ad-btn i {
+            margin-right: 8px;
+        }
+        
+        .ad-btn.primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .ad-btn.primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .ad-btn.secondary {
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            background-color: transparent;
+        }
+        
+        .ad-btn.secondary:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .ad-btn.favorite {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            background-color: transparent;
+            max-width: 50px;
+        }
+        
+        .ad-btn.favorite:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        /* Личный кабинет */
+        .account-section {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .account-sidebar {
+            width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            align-self: flex-start;
+        }
+        
+        .account-user {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .account-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        
+        .account-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .account-status {
+            font-size: 14px;
+            color: var(--metal-medium);
+        }
+        
+        .account-menu {
+            list-style: none;
+        }
+        
+        .account-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .account-menu a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--text-dark);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .account-menu a:hover, .account-menu a.active {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .account-menu a i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        .account-content {
+            flex-grow: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .account-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--metal-medium);
+        }
+        
+        .stat-card.active .stat-value {
+            color: var(--success);
+        }
+        
+        .stat-card.archive .stat-value {
+            color: var(--metal-medium);
+        }
+        
+        .stat-card.favorites .stat-value {
+            color: var(--accent);
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse:hover {
+            animation: pulse 1s infinite;
+        }
+        
+        /* Всплывающие окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--metal-medium);
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--accent);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1600px) {
+            .container {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .account-section {
+                flex-direction: column;
+            }
+            
+            .account-sidebar {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header, nav, .content {
+                padding: 15px 20px;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .logo-text span {
+                font-size: 12px;
+            }
+            
+            .user-menu a span {
+                display: none;
+            }
+            
+            .user-menu a i {
+                margin-right: 0;
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+            
+            .nav-link i {
+                margin-right: 0;
+            }
+            
+            .nav-link.active::after {
+                bottom: -15px;
+            }
+            
+            .ads-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div class="logo-text">
+                    Металлы и сплавы
+                    <span>ООО НПК Метотех</span>
+                </div>
+            </div>
+            <div class="user-menu">
+                <a href="#notifications"><i class="fas fa-bell"></i><span>Уведомления</span></a>
+                <a href="#messages"><i class="fas fa-envelope"></i><span>Сообщения</span></a>
+                <a href="#account" id="account-btn" class="btn"><i class="fas fa-user"></i><span>Личный кабинет</span></a>
+            </div>
+        </header>
+        
+        <!-- Навигация -->
+        <nav>
+            <a href="#home" class="nav-link active" data-page="home"><i class="fas fa-home"></i><span>Главная</span></a>
+            <a href="#buy" class="nav-link" data-page="buy"><i class="fas fa-shopping-cart"></i><span>Купить</span></a>
+            <a href="#sell" class="nav-link" data-page="sell"><i class="fas fa-tag"></i><span>Продать</span></a>
+            <a href="#services" class="nav-link" data-page="services"><i class="fas fa-cogs"></i><span>Услуги</span></a>
+            <a href="#news" class="nav-link" data-page="news"><i class="fas fa-newspaper"></i><span>Новости</span></a>
+            <a href="#contacts" class="nav-link" data-page="contacts"><i class="fas fa-phone-alt"></i><span>Контакты</span></a>
+        </nav>
+        
+        <!-- Основное содержимое -->
+        <div class="content">
+            <!-- Главная страница -->
+            <div id="home" class="page fade-in">
+                <h1 class="page-title"><i class="fas fa-home"></i> Добро пожаловать на доску объявлений</h1>
+                
+                <div class="quick-actions fade-in delay-1">
+                    <a href="#buy" class="action-btn buy pulse" data-page="buy">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Купить металл</h3>
+                        <p>Более 5000 предложений от проверенных поставщиков</p>
+                    </a>
+                    <a href="#sell" class="action-btn sell pulse" data-page="sell">
+                        <i class="fas fa-tag"></i>
+                        <h3>Продать металл</h3>
+                        <p>Разместите свое объявление и найдите покупателей</p>
+                    </a>
+                    <a href="#services" class="action-btn services pulse" data-page="services">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Металлообработка</h3>
+                        <p>Услуги по обработке и изготовлению металлоизделий</p>
+                    </a>
+                </div>
+                
+                <h2 class="page-title"><i class="fas fa-list"></i> Последние объявления</h2>
+                
+                <div class="filters fade-in delay-2">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Тип металла</label>
+                            <select class="filter-select">
+                                <option>Все металлы</option>
+                                <option>Черные металлы</option>
+                                <option>Цветные металлы</option>
+                                <option>Редкие металлы</option>
+                                <option>Драгоценные металлы</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Категория</label>
+                            <select class="filter-select">
+                                <option>Все категории</option>
+                                <option>Листовой прокат</option>
+                                <option>Сортовой прокат</option>
+                                <option>Трубы</option>
+                                <option>Проволока</option>
+                                <option>Порошки</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Регион</label>
+                            <select class="filter-select">
+                                <option>Все регионы</option>
+                                <option>Москва</option>
+                                <option>Санкт-Петербург</option>
+                                <option>Центральный ФО</option>
+                                <option>Северо-Западный ФО</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn reset"><i class="fas fa-undo"></i> Сбросить</button>
+                        <button class="filter-btn"><i class="fas fa-search"></i> Найти</button>
+                    </div>
+                </div>
+                
+                <div class="ads-list">
+                    <!-- Объявление 1 -->
+                    <div class="ad-card fade-in delay-2">
+                        <div class="ad-image">
+                            <img src="https://images.unsplash.com/photo-1581093057305-2551ae5a01c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Молибден">
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Молибден листовой 0.5-50мм ГОСТ 13617-68</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Москва</span>
+                                <span><i class="far fa-calendar-alt"></i> 12.05.2023</span>
+                            </div>
+                            <div class="ad-price">1 850 ₽/кг</div>
+                            <p class="ad-description">Молибден листовой 0.5-50мм, ГОСТ 13617-68. Поставки от 1кг. Возможен самовывоз или доставка. Качество подтверждено сертификатами.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Объявление 2 -->
+                    <div class="ad-card fade-in delay-2 new">
+                        <div class="ad-image">
+                            <img src="https://images.unsplash.com/photo-1581093057927-02a75e4d5b1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Титан">
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Титан ВТ1-0 в прутках диаметром 10-150мм</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Екатеринбург</span>
+                                <span><i class="far fa-calendar-alt"></i> 10.05.2023</span>
+                            </div>
+                            <div class="ad-price">3 200 ₽/кг</div>
+                            <p class="ad-description">Титан ВТ1-0 в прутках диаметром 10-150мм. Качество подтверждено сертификатами. Оптовые партии. Доставка по всей России.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Объявление 3 -->
+                    <div class="ad-card fade-in delay-3">
+                        <div class="ad-image">
+                            <div class="no-image">
+                                <i class="fas fa-cube"></i>
+                                <p>Изображение отсутствует</p>
+                            </div>
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Нихром Х20Н80 проволока 0.1-5.0мм</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Новосибирск</span>
+                                <span><i class="far fa-calendar-alt"></i> 08.05.2023</span>
+                            </div>
+                            <div class="ad-price">1 150 ₽/кг</div>
+                            <p class="ad-description">Нихром Х20Н80 проволока 0.1-5.0мм, лента 0.1-3.0мм. Наличие на складе. Доставка по всей России. Гарантия качества.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Объявление 4 -->
+                    <div class="ad-card fade-in delay-3">
+                        <div class="ad-image">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Нихром">
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Фехраль Х23Ю5Т лента 0.5-3.0мм</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Челябинск</span>
+                                <span><i class="far fa-calendar-alt"></i> 05.05.2023</span>
+                            </div>
+                            <div class="ad-price">950 ₽/кг</div>
+                            <p class="ad-description">Фехраль Х23Ю5Т лента 0.5-3.0мм, проволока 0.5-6.0мм. Производство Россия. Наличие на складе. Оптовые цены.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Объявление 5 -->
+                    <div class="ad-card fade-in delay-3">
+                        <div class="ad-image">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Тантал">
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Тантал листовой ТЧ толщиной 0.5-10мм</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Москва</span>
+                                <span><i class="far fa-calendar-alt"></i> 03.05.2023</span>
+                            </div>
+                            <div class="ad-price">12 500 ₽/кг</div>
+                            <p class="ad-description">Тантал листовой ТЧ толщиной 0.5-10мм. Высокое качество. Сертификаты. Доставка по РФ. Самовывоз со склада в Москве.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Объявление 6 -->
+                    <div class="ad-card fade-in delay-3 new">
+                        <div class="ad-image">
+                            <img src="https://images.unsplash.com/photo-1581093057305-2551ae5a01c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Молибден">
+                        </div>
+                        <div class="ad-content">
+                            <h3 class="ad-title">Молибденовый порошок МЧ 99.95%</h3>
+                            <div class="ad-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Санкт-Петербург</span>
+                                <span><i class="far fa-calendar-alt"></i> 01.05.2023</span>
+                            </div>
+                            <div class="ad-price">2 300 ₽/кг</div>
+                            <p class="ad-description">Молибденовый порошок МЧ 99.95%. Фракция 1-10 мкм. Упаковка 1-5 кг. Доставка по РФ. Сертификаты качества.</p>
+                            <div class="ad-actions">
+                                <a href="#" class="ad-btn favorite"><i class="fas fa-heart"></i></a>
+                                <a href="#" class="ad-btn secondary">Подробнее</a>
+                                <a href="#" class="ad-btn primary">Купить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Личный кабинет -->
+            <div id="account" class="page" style="display: none;">
+                <div class="account-section fade-in">
+                    <div class="account-sidebar">
+                        <div class="account-user">
+                            <div class="account-avatar">ИИ</div>
+                            <div>
+                                <div class="account-name">Иван Иванов</div>
+                                <div class="account-status">Компания: ООО "МеталлТрейд"</div>
+                            </div>
+                        </div>
+                        <ul class="account-menu">
+                            <li><a href="#profile" class="active"><i class="fas fa-user"></i> Профиль</a></li>
+                            <li><a href="#my-ads"><i class="fas fa-list"></i> Мои объявления</a></li>
+                            <li><a href="#favorites"><i class="fas fa-heart"></i> Избранное</a></li>
+                            <li><a href="#messages"><i class="fas fa-envelope"></i> Сообщения</a></li>
+                            <li><a href="#notifications"><i class="fas fa-bell"></i> Уведомления</a></li>
+                            <li><a href="#settings"><i class="fas fa-cog"></i> Настройки</a></li>
+                            <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                        </ul>
+                    </div>
+                    <div class="account-content">
+                        <h1 class="account-title">Мой профиль</h1>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card active">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Активных объявлений</div>
+                            </div>
+                            <div class="stat-card archive">
+                                <div class="stat-value">24</div>
+                                <div class="stat-label">Завершенных сделок</div>
+                            </div>
+                            <div class="stat-card favorites">
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">В избранном</div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="account-title">Личная информация</h2>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Имя</label>
+                            <input type="text" class="form-control" value="Иван">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Фамилия</label>
+                            <input type="text" class="form-control" value="Иванов">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="ivanov@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" value="+7 (999) 123-45-67">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Компания</label>
+                            <input type="text" class="form-control" value="ООО 'МеталлТрейд'">
+                        </div>
+                        
+                        <button class="submit-btn pulse"><i class="fas fa-save"></i> Сохранить изменения</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно входа -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Вход в личный кабинет</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" placeholder="Введите ваш email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Пароль</label>
+                    <input type="password" class="form-control" placeholder="Введите пароль">
+                </div>
+                <div class="form-group">
+                    <button class="submit-btn" style="width: 100%;"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#register" style="color: var(--secondary);">Регистрация</a> | 
+                    <a href="#forgot" style="color: var(--secondary);">Забыли пароль?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Переключение между страницами
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Удаляем активный класс у всех ссылок
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Добавляем активный класс текущей ссылке
+                this.classList.add('active');
+                
+                // Скрываем все страницы
+                document.querySelectorAll('.page').forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // Показываем нужную страницу
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).style.display = 'block';
+            });
+        });
+        
+        // Быстрые действия
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const pageId = this.getAttribute('data-page');
+                
+                // Удаляем активный класс у всех ссылок
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Добавляем активный класс соответствующей ссылке в навигации
+                document.querySelector(`.nav-link[data-page="${pageId}"]`).classList.add('active');
+                
+                // Скрываем все страницы
+                document.querySelectorAll('.page').forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                // Показываем нужную страницу
+                document.getElementById(pageId).style.display = 'block';
+            });
+        });
+        
+        // Кнопка личного кабинета
+        document.getElementById('account-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Удаляем активный класс у всех ссылок
+            document.querySelectorAll('.nav-link').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Скрываем все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Показываем страницу личного кабинета
+            document.getElementById('account').style.display = 'block';
+        });
+        
+        // Модальное окно
+        const modal = document.getElementById('login-modal');
+        const modalClose = document.querySelector('.modal-close');
+        
+        function openModal() {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+        
+        modalClose.addEventListener('click', closeModal);
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Инициализация - показываем главную страницу
+        document.getElementById('home').style.display = 'block';
+    </script>
+</body>
+</html>
